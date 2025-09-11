@@ -25,9 +25,7 @@
                 numpy
                 seaborn
                 matplotlib
-                jupyterlab
-                ipython
-                kaggle
+                scikit-learn
             ]))
         ];
 
@@ -37,7 +35,7 @@
         ];
 
         shellHook = ''
-            echo "Entering ML dev enviroment..." && jupyter lab
+            echo "Entering ML dev enviroment..."
         '';
       };
   };
