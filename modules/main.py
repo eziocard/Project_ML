@@ -15,7 +15,6 @@ warnings.filterwarnings("ignore", category=UserWarning)
 
 
 def obtener_datos_usuario_completo():
-    """Pide al usuario los 21 indicadores de salud."""
     print("\n--- Por favor, ingresa los datos del paciente ---")
 
     # Nombres de las columnas en el orden exacto del CSV original
@@ -26,9 +25,17 @@ def obtener_datos_usuario_completo():
         'HighBP': "Presión arterial alta (1=Sí, 0=No)?",
         'HighChol': "Colesterol alto (1=Sí, 0=No)?",
         'DiffWalk': "Dificultad para caminar (1=Sí, 0=No)?",
-        'HeartDiseaseorAttack': "Enfermedad cardíaca o ataque (1=Sí, 0=No)?"
+        'HeartDiseaseorAttack': "Enfermedad cardíaca o ataque (1=Sí, 0=No)?",
+        'PhysHlth': "Días de mala salud física en el último mes?",
+        'Stroke': "¿Ha tenido un derrame cerebral (1=Sí, 0=No)?",
+        'CholCheck': "¿Ha tenido un chequeo de colesterol en los últimos 5 años (1=Sí, 0=No)?",
+        'MentHlth': "Días de mala salud mental en el último mes?",
+        
+        
+        
+        
     }
-    columnas = ['GenHlth', 'BMI', 'Age', 'HighBP', 'HighChol', 'DiffWalk', 'HeartDiseaseorAttack']
+    columnas = ['GenHlth', 'BMI', 'Age', 'HighBP', 'HighChol', 'DiffWalk', 'HeartDiseaseorAttack', 'PhysHlth', 'Stroke', 'CholCheck', 'MentHlth']
 
     datos_usuario = []
     for col in columnas:
@@ -80,7 +87,7 @@ def main():
             # 2. **Paso Clave:** Modificamos el objeto DESPUÉS de crearlo.
             #    Filtramos el atributo _X para que solo contenga las 7 columnas importantes.
             columnas_importantes = [
-                'GenHlth', 'BMI', 'Age', 'HighBP', 'HighChol', 'DiffWalk', 'HeartDiseaseorAttack'
+                'GenHlth', 'BMI', 'Age', 'HighBP', 'HighChol', 'DiffWalk', 'HeartDiseaseorAttack', 'PhysHlth', 'Stroke', 'CholCheck', 'MentHlth'
             ]
             modelo._X = modelo.X[columnas_importantes]
 
