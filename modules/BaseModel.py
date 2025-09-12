@@ -1,3 +1,4 @@
+from abc import abstractmethod
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
@@ -41,19 +42,19 @@ class BaseModel():
             case _:
                 raise NotDefinedException("Este escalado no existe")
 
+    @abstractmethod
     def train(self):
-        raise NotDefinedException("Este método no ha sido implementado")
-
-    def predict(self, usuario):
-        usuario_scaled = self.scaler.transform(usuario)
-        prediction = self.model.predict(usuario_scaled)
-        
-        return prediction
+        pass
     
     
-    def metrics(self,model,X):
+    @abstractmethod
+    def predict(self):
+        self.model = None # Definan su modelo en el atributo self.model
+        pass
 
-        y_hat = model.predict(X)
+    def metrics(self):
+
+        y_hat = self.model.predict(self.X_test)
         print(f"Accuracy: {accuracy_score(self.y_test, y_hat):.3f}")
         print(f"Precision: {precision_score(self.y_test, y_hat):.3f}")
         print(f"Recall:    {recall_score(self.y_test, y_hat):.3f}")
