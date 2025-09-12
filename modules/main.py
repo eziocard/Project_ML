@@ -9,6 +9,7 @@ from LogisticGD import ModeloLogistico
 from Stocashtic import ModeloSGD 
 from MiniBach import ModeloMiniBatch 
 from TreeModel import TreeModel
+from SvmModel import SVMclass
 
 # Ignorar advertencias de scikit-learn para una interfaz más limpia
 warnings.filterwarnings("ignore", category=UserWarning)
@@ -51,7 +52,7 @@ def main():
         "2": ModeloSGD,
         "3": ModeloMiniBatch,
         "4": TreeModel,
-        #"4": ricardo,
+        "5": SVMclass,
         
     }
 
@@ -64,6 +65,7 @@ def main():
         print("   2: SGD (Stochastic Gradient Descent)")
         print("   3: Mini-Batch Gradient Descent")
         print("   4: Árbol de Decisión")
+        print("   5: SVM")
         opcion = input("Ingresa tu opción (o 'salir' para terminar): ")
 
         if opcion.lower() == 'salir':
@@ -74,6 +76,7 @@ def main():
             continue
 
         try:
+            print('cargando....')
             # 1. Instanciar el modelo (carga el dataset completo)
             ClaseDelModelo = modelos_disponibles[opcion]
             modelo = ClaseDelModelo(file_path)
@@ -99,16 +102,18 @@ def main():
 
             # 6. Realizar y mostrar la predicción
             prediccion, probabilidades = modelo.predict(datos_usuario)
-
+            
             print("\n--- Resultado de la Predicción ---")
             if prediccion[0] == 1.0:
-                confianza = probabilidades[0][1] * 100
-                print(f"Resultado: ALTO RIESGO de diabetes.")
-                print(f"Confianza de la predicción: {confianza:.2f}%")
+                if probabilidades:
+                    confianza = probabilidades[0][1] * 100
+                    print(f"Resultado: ALTO RIESGO de diabetes.")
+                    print(f"Confianza de la predicción: {confianza:.2f}%")
             else:
-                confianza = probabilidades[0][0] * 100
-                print(f"Resultado: BAJO RIESGO de diabetes.")
-                print(f"Probabilidad de que tengas diabetes: {confianza:.2f}%")
+                if probabilidades:
+                    confianza = probabilidades[0][0] * 100
+                    print(f"Resultado: BAJO RIESGO de diabetes.")
+                    print(f"Probabilidad de que tengas diabetes: {confianza:.2f}%")
 
         except FileNotFoundError:
             print(f"Error: No se encontró el archivo en la ruta '{file_path}'. Verifica que el archivo exista.")

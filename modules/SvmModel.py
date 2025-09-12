@@ -1,4 +1,4 @@
-from .BaseModel import BaseModel
+from BaseModel import BaseModel
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix, ConfusionMatrixDisplay
 from sklearn.metrics import precision_score, recall_score, f1_score, confusion_matrix, ConfusionMatrixDisplay, accuracy_score
 import matplotlib.pyplot as plt
@@ -24,12 +24,16 @@ class SVMclass(BaseModel):
                 self.X_train_scaled = self.scaler.transform(self.X_train)
                 self.model = SVC(kernel=kernel,C=C,random_state=random_state
                 )
-    def predict(self): #aqui es donde se pasan los valores escalados, recuerda programar un case para predecir valores por el usuario
-        self.X_test_scaled = self.scaler.transform(self.X_test)
-        self.y_pred = self.model.predict(self.X_test_scaled) 
-        print(f"{self.y_pred=}")
+    def predict(self,usuario_data = None): #aqui es donde se pasan los valores escalados, recuerda programar un case para predecir valores por el usuario
+        usuario_data_scaled = self.scaler.transform(usuario_data)
+
+        prediction = self.model.predict(usuario_data_scaled)
+        probabilities = None
+        
+        return prediction, probabilities
      
     def metrics(self):
+        self.X_test_scaled = self.scaler.transform(self.X_test)
         y_hat = self.model.predict(self.X_test_scaled)
         print(f"Accuracy: {accuracy_score(self.y_test, y_hat):.3f}")
         print(f"Precision: {precision_score(self.y_test, y_hat):.3f}")
