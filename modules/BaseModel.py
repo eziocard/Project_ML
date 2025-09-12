@@ -1,6 +1,5 @@
 from abc import abstractmethod
 import pandas as pd
-from modules.NotDefinedException import NotDefinedException
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.metrics import precision_score, recall_score, f1_score, confusion_matrix, ConfusionMatrixDisplay, accuracy_score
@@ -46,7 +45,8 @@ class BaseModel():
     @abstractmethod
     def train(self):
         pass
-
+    
+    
     @abstractmethod
     def predict(self):
         self.model = None # Definan su modelo en el atributo self.model
