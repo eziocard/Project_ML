@@ -26,9 +26,14 @@ class TreeModel(BaseModel):
         self.model.fit(self.X_train, self.y_train)
 
 
-    def predict(self):
-        self.y_pred = self.model.predict_proba(self.X_test.iloc[[0]])
+    def predict(self,data = None ):
+        self.y_pred = None
+        if not data:
+            self.y_pred = self.model.predict_proba(self.X_test.iloc[[0]]) # Primera fila del test sample
+        else:
+            self.y_pred = self.model.predict_proba(data)
         self.diabetic = True if self.y_pred[0][1] > 0.75 else False
+
         print(f"{self.y_pred=}")
         print(f"{self.diabetic=}")
 
