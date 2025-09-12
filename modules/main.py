@@ -8,6 +8,7 @@ import warnings
 from LogisticGD import ModeloLogistico
 from Stocashtic import ModeloSGD 
 from MiniBach import ModeloMiniBatch 
+from TreeModel import TreeModel
 
 # Ignorar advertencias de scikit-learn para una interfaz más limpia
 warnings.filterwarnings("ignore", category=UserWarning)
@@ -48,10 +49,10 @@ def main():
     modelos_disponibles = {
         "1": ModeloLogistico,
         "2": ModeloSGD,
-        "3": ModeloMiniBatch
-        #
-        #
-        #
+        "3": ModeloMiniBatch,
+        "4": TreeModel,
+        #"4": ricardo,
+        
     }
 
     while True:
@@ -62,6 +63,7 @@ def main():
         print("   1: Regresión Logística (Recomendado)")
         print("   2: SGD (Stochastic Gradient Descent)")
         print("   3: Mini-Batch Gradient Descent")
+        print("   4: Árbol de Decisión")
         opcion = input("Ingresa tu opción (o 'salir' para terminar): ")
 
         if opcion.lower() == 'salir':

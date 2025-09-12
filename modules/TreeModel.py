@@ -1,6 +1,6 @@
 from sklearn.tree import DecisionTreeClassifier
 from sklearn import tree as sktree
-from modules.BaseModel import BaseModel
+from BaseModel import BaseModel
 import matplotlib.pyplot as plt
 
 
@@ -27,15 +27,12 @@ class TreeModel(BaseModel):
 
 
     def predict(self,data = None ):
-        self.y_pred = None
-        if not data:
-            self.y_pred = self.model.predict_proba(self.X_test.iloc[[0]]) # Primera fila del test sample
-        else:
-            self.y_pred = self.model.predict_proba(data)
-        self.diabetic = True if self.y_pred[0][1] > 0.75 else False
-
-        print(f"{self.y_pred=}")
-        print(f"{self.diabetic=}")
+        
+        
+        prediction = self.model.predict(data)
+        probabilities = self.model.predict_proba(data)
+        
+        return prediction, probabilities
 
 
     def plot(self):
