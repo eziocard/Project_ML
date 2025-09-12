@@ -1,5 +1,6 @@
+from abc import abstractmethod
 import pandas as pd
-from modules.AbstractModel import NotDefinedException
+from modules.NotDefinedException import NotDefinedException
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.metrics import precision_score, recall_score, f1_score, confusion_matrix, ConfusionMatrixDisplay, accuracy_score
@@ -42,15 +43,18 @@ class BaseModel():
             case _:
                 raise NotDefinedException("Este escalado no existe")
 
+    @abstractmethod
     def train(self):
-        raise NotDefinedException("Este método no ha sido implementado")
+        pass
 
+    @abstractmethod
     def predict(self):
-        raise NotDefinedException("Este método no ha sido implementado")
+        self.model = None # Definan su modelo en el atributo self.model
+        pass
 
-    def metrics(self,model,X):
+    def metrics(self):
 
-        y_hat = model.predict(X)
+        y_hat = self.model.predict(self.X_test)
         print(f"Accuracy: {accuracy_score(self.y_test, y_hat):.3f}")
         print(f"Precision: {precision_score(self.y_test, y_hat):.3f}")
         print(f"Recall:    {recall_score(self.y_test, y_hat):.3f}")
