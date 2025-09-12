@@ -1,5 +1,4 @@
 import pandas as pd
-from modules.AbstractModel import NotDefinedException
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.metrics import precision_score, recall_score, f1_score, confusion_matrix, ConfusionMatrixDisplay, accuracy_score
@@ -45,9 +44,13 @@ class BaseModel():
     def train(self):
         raise NotDefinedException("Este método no ha sido implementado")
 
-    def predict(self):
-        raise NotDefinedException("Este método no ha sido implementado")
-
+    def predict(self, usuario):
+        usuario_scaled = self.scaler.transform(usuario)
+        prediction = self.model.predict(usuario_scaled)
+        
+        return prediction
+    
+    
     def metrics(self,model,X):
 
         y_hat = model.predict(X)
